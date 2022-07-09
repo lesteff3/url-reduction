@@ -1,0 +1,23 @@
+{% load static %}
+
+<title>{% block title %}{% endblock %} - URL Shortener</title>
+
+<nav>
+  <h1><a href="{% url 'index' %}">Главная</a></h1>
+  <ul>
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'view_urls' %}" class="button">Личный кабинет</a>
+      <li><a href="{% url 'logout' %}" class="link">Выйти</a>
+    {% else %}
+      <li><a href="{% url 'register' %}" class="link">Регистрация</a>
+      <li><a href="{% url 'login' %}" class="link">Войти</a>
+    {% endif %}
+  </ul>
+</nav>
+
+<hr>
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+
+  {% block content %}{% endblock %}

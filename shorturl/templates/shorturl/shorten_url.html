@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Создание сокращенного URL{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="centered">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.long_url }}
+            <button class="button" type="submit">Сократить</button>
+        </form>
+    </div>
+	
+    {% if errors %}
+      <div class="flash" role="alert">
+        <p>{{errors}}</p>
+      </div>
+    {% endif %}
+	
+	{% if no_user %}
+      <div class="centered" role="alert">
+        <p style="color: red;">{{no_user}}</p>
+      </div>
+    {% endif %}
+
+    {% if new_url %}
+      <div class="centered">
+        <h2>Ваш сокращенный URL</h2>
+        <p class="shorturl">{{ new_url }}</p>
+      </div>
+    {% endif %}
+
+{% endblock %}

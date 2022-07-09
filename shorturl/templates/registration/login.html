@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{% block title %}Log in{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <p class="centered" style="color: red;">Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p class="centered" style="color: red;">Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p class="centered" style="color: red;">Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <div class="centered">
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+          <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+          </div>
+          <div>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+          </div>
+        <input type="submit" value="Log in" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Ваши сокращенные URL{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    {% if data %}
+        <table>
+            <tr>
+                <th>№</th>
+                <th>Сокращенный url</th>
+                <th>Оригинальный url</th>
+                <th>Дата создания</th>
+            </tr>
+            {% for row in data %}
+                <tr>
+                    <td style="text-align: center">{{ forloop.counter }}</td>
+                    <td>{{ path }}{{ row.reduction_url }}</td>
+                    <td>----{{ row.original_url }}----</td>
+                    <td>{{ row.created }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+            <p>Вы еще не сократили ни одного URL...</p>
+            <p><a href="{% url 'index' %}">Сократить URL</a></p>
+    {% endif %}
+
+{% endblock %}
